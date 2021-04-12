@@ -8,9 +8,11 @@
 #ifndef __TSOS_NUCLEUS_FILESYSTEM_QUARK__
 #define __TSOS_NUCLEUS_FILESYSTEM_QUARK__
 
-#include "generic/quark.hpp"
-#include "generic/types.hpp"
-#include "generic/filesystem_file.hpp"
+#include <generic/quark.hpp>
+#include <generic/types.hpp>
+#include <generic/filesystem_file.hpp>
+#include <generic/array.hpp>
+#include <generic/string.hpp>
 
 class Filesystem_quark : public Quark
 {
@@ -22,16 +24,16 @@ public:
   ~Filesystem_quark();
 
   //Read the directory
-  virtual char **readdir(char *path) = 0;
+  virtual Array<String &> &readdir(String &path) = 0;
 
   //Rename a target
-  virtual void rename(char *path, char *newPath) = 0;
+  virtual void rename(String &path, char *newPath) = 0;
 
   //Make sure a file actually exists
-  virtual bool exists(char *path) = 0;
+  virtual bool exists(String &path) = 0;
 
   //Open a file
-  virtual File open(char *path) = 0;
+  virtual File open(String &path) = 0;
 
   //Close a file
   virtual void close(File file) = 0;
@@ -43,13 +45,15 @@ public:
   virtual void write(File file, char *data) = 0;
 
   //Read from a file
-  virtual char *readfile(char *path) = 0;
+  virtual char *readfile(String &path) = 0;
 
   //Write to a file
-  virtual void writefile(char *path, char *data) = 0;
+  virtual void writefile(String &path, char *data) = 0;
 
   //Append to a file
-  virtual void appendfile(char *path, char *data) = 0;
+  virtual void appendfile(String &path, char *data) = 0;
+
+  virtual bool isfilenamevalid(char *name) = 0;
 };
 
 #endif

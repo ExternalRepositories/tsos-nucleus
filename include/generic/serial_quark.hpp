@@ -9,8 +9,8 @@
 #ifndef __TSOS_NUCLEUS_SERIAL_QUARK__
 #define __TSOS_NUCLEUS_SERIAL_QUARK__
 
-#include "generic/quark.hpp"
-#include "generic/types.hpp"
+#include <generic/quark.hpp>
+#include <generic/types.hpp>
 
 class Serial_quark : public Quark
 {
@@ -20,11 +20,17 @@ public:
 
   ~Serial_quark();
 
-  // Exchange a byte
-  virtual uint8_t exchangebyte(uint8_t b) = 0;
+  // Is device there
+  virtual bool isdevicereadytotransmit(void) = 0;
 
   // Is device there
-  virtual bool isdevicethere(void) = 0;
+  virtual bool isdevicereadytoreceive(void) = 0;
+
+  // Send a byte
+  virtual void sendbyte(uint8_t byte) = 0;
+
+  // Send a byte
+  virtual uint8_t getbyte(void) = 0;
 };
 
 #endif

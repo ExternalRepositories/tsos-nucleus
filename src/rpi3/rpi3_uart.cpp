@@ -1,5 +1,5 @@
 //By Tsuki Superior
-#include "rpi3/rpi3_uart.hpp"
+#include <rpi3/rpi3_uart.hpp>
 
 RPI3_UART_quark::RPI3_UART_quark(void)
 {
@@ -15,12 +15,21 @@ void RPI3_UART_quark::reset(void)
 {
 }
 
-bool RPI3_UART_quark::isdevicethere(void)
+bool RPI3_UART_quark::isdevicereadytotransmit(void)
 {
   return false;
 }
 
-uint8_t RPI3_UART_quark::exchangebyte(uint8_t b)
+bool RPI3_UART_quark::isdevicereadytoreceive(void)
+{
+  return false;
+}
+
+void RPI3_UART_quark::sendbyte(uint8_t byte)
+{
+}
+
+uint8_t RPI3_UART_quark::getbyte(void)
 {
   return 0;
 }

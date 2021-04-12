@@ -9,11 +9,11 @@ import json
 from termcolor import cprint
 
 # Create build folder if it doesn't exist
-if os.path.isdir("/tmp/tsos-filesystem"):
-    shutil.rmtree("/tmp/tsos-filesystem")
+if os.path.isdir("build/filesystem"):
+    shutil.rmtree("build/filesystem")
 
 # Open that config file and read from it
-tmp_file = open("cfg/system_config.json")
+tmp_file = open("config/system_config.json")
 build_settings = json.loads(tmp_file.read())
 tmp_file.close()
 
@@ -29,14 +29,14 @@ if shutil.which("cmake") is None:
 
 # Make sure the script has the correct number of arguments, and if not, display help
 if not(len(sys.argv) == 2 or len(sys.argv) == 3) or sys.argv[1] == "help":
-    cprint("Official TS/OS buildscript (C) Tsuki Superior. Licensed under the same license as TS/OS (see LICENSE file)\n", "yellow")
-    print(sys.argv[0], "<system> <action>")
+    cprint("\nOfficial TS/OS buildscript (C) Tsuki Superior. Licensed under the same license as TS/OS (see LICENSE file)\n", "yellow")
+    cprint(sys.argv[0] + " <system> <action>", "green")
     print("Supported systems:\n")
 
     for x in build_settings:
         print(x, "-", build_settings[x]["description"])
     cprint("\nSet the action to either debug or test, or you can leave it blank\n", "yellow")
-    print("Look in buildscript directory to find the buildscripts pertaining to the systems")
+    cprint("Look in buildscript directory to find the buildscripts pertaining to the systems\n", "yellow")
     sys.exit(1)
 
 # Get the platform
@@ -58,23 +58,23 @@ if platform in build_settings:
     if os.path.exists("nucleus"):
         os.remove("nucleus")
 
+    if os.path.exists("nucleus.elf"):
+        os.remove("nucleus.elf")
+
     if os.path.exists("tsos.iso"):
         os.remove("tsos.iso")
 
     if os.path.exists("tsos.img"):
         os.remove("tsos.img")
 
-    if os.path.exists("tsos.gba"):
-        os.remove("tsos.gba")
-
     # Run cmake
     os.system("cmake .. -DPLATFORM=" + platform.upper())
 
     # Run make
-    os.system("make -j$(nproc)")
+    os.system("make")
 
     # Insure that the kernel was produced, and if not, fail
-    if not os.path.exists("nucleus"):
+    if not os.path.exists("nucleus.elf"):
         cprint("Compiling failed!", "red")
         sys.exit(1)
 
@@ -132,6 +132,7 @@ if action in ["debug", "test"]:
     else:
         cprint("Cannot " + action + " this system with this script yet.", "yellow")
         sys.exit(0)
+
 
 else:
     cprint("Invalid action", "red")

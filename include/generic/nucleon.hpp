@@ -1,9 +1,9 @@
 //By Tsuki Superior
-#ifndef __TSOS_MODULE_CORE__
-#define __TSOS_MODULE_CORE__
+#ifndef __TSOS_NUCLEON_CORE__
+#define __TSOS_NUCLEON_CORE__
 
-#include "generic/quark.hpp"
-#include "generic/types.hpp"
+#include <generic/quark.hpp>
+#include <generic/types.hpp>
 
 // The base class of TS/OS nucleons
 template <class T>
@@ -35,6 +35,12 @@ public:
     }
     return false;
   };
+
+  // Make sure the quark is set
+  bool isquarkset(void)
+  {
+    return quark != nullptr;
+  }
 
 protected:
   T *quark;

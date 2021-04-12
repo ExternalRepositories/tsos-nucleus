@@ -2,8 +2,8 @@
 #ifndef __TSOS_VGA_QUARK__
 #define __TSOS_VGA_QUARK__
 
-#include "generic/video_quark.hpp"
-#include "generic/video_modes.hpp"
+#include <generic/video_quark.hpp>
+#include <generic/video_modes.hpp>
 
 class VGA_quark : public Video_quark
 {
@@ -19,7 +19,7 @@ public:
 
 private:
   // The text buffer
-  char *text_buffer;
+  char *screen_buffer;
 
   video_mode mode;
 

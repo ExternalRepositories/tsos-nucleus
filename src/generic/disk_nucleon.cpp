@@ -1,6 +1,6 @@
 //By Tsuki Superior
-#include "generic/disk_nucleon.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/disk_nucleon.hpp>
+#include <generic/nucleus_instance.hpp>
 
 Disk::Disk(void)
 {
@@ -8,12 +8,6 @@ Disk::Disk(void)
   static ATAPI_quark cd_quark = ATAPI_quark();
 
   attachquark(cd_quark);
-#endif
-
-#ifdef __GAMEBOY_ADVANCED__
-  static GBA_CARTRIDGE_quark gba_cartridge_quark = GBA_CARTRIDGE_quark();
-
-  attachquark(gba_cartridge_quark);
 #endif
 
 #ifdef __RASPBERRY_PI_3__
@@ -27,7 +21,7 @@ Disk::~Disk()
 {
 }
 
-uint8_t *Disk::getbytes(uint16_t offset, uint8_t len) const
+uint8_t *Disk::getbytes(uint32_t offset, uint16_t len) const
 {
   uint8_t *buffer = (uint8_t *)"";
   quark->getbytes(buffer, offset, len);
@@ -40,5 +34,9 @@ uint16_t Disk::getsectorsize(void) const
 }
 
 void Disk::commitall(void) const
+{
+}
+
+void Disk::setbytes(uint32_t offset, uint16_t len, uint8_t *data) const
 {
 }

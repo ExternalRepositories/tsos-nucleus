@@ -4,9 +4,9 @@
       "name": "PC",
       "includePath": ["${workspaceFolder}/**"],
       "defines": ["__PERSONAL_COMPUTER__"],
-      "compilerPath": "/usr/tsos-toolchain/bin/clang++",
+      "compilerPath": "/usr/bin/clang++",
       "cStandard": "c99",
-      "cppStandard": "c++11",
+      "cppStandard": "c++14",
       "intelliSenseMode": "clang-x86",
       "compilerArgs": [],
       "browse": {
@@ -15,27 +15,26 @@
       }
     },
     {
-      "name": "GBA",
+      "name": "NSPIRE",
       "includePath": ["${workspaceFolder}/**"],
-      "defines": [],
-      "compilerPath": "/usr/tsos-toolchain/bin/clang++",
+      "defines": ["__NSPIRE__"],
+      "compilerPath": "/usr/bin/clang++",
       "cStandard": "c99",
-      "cppStandard": "c++11",
-      "intelliSenseMode": "clang-arm",
+      "cppStandard": "c++14",
       "compilerArgs": [],
       "browse": {
         "path": ["${workspaceFolder}/**"],
         "limitSymbolsToIncludedHeaders": true
       },
-      "configurationProvider": "ms-vscode.makefile-tools"
+      "intelliSenseMode": "clang-arm"
     },
     {
-      "name": "NSPIRE",
+      "name": "CANON-A1100",
       "includePath": ["${workspaceFolder}/**"],
-      "defines": ["__NSPIRE__"],
-      "compilerPath": "/usr/tsos-toolchain/bin/clang++",
+      "defines": ["__CANON_A1100__"],
+      "compilerPath": "/usr/bin/clang++",
       "cStandard": "c99",
-      "cppStandard": "c++11",
+      "cppStandard": "c++14",
       "compilerArgs": [],
       "browse": {
         "path": ["${workspaceFolder}/**"],
@@ -47,15 +46,27 @@
       "name": "RPI3",
       "includePath": ["${workspaceFolder}/**"],
       "defines": ["__RASPBERRY_PI_3__"],
-      "compilerPath": "/usr/bin/clang++-12",
+      "compilerPath": "/usr/bin/clang++",
       "cStandard": "c99",
-      "cppStandard": "c++11",
+      "cppStandard": "c++14",
       "compilerArgs": [],
       "browse": {
         "path": ["${workspaceFolder}/**"],
         "limitSymbolsToIncludedHeaders": true
       },
       "intelliSenseMode": "clang-arm64"
+    },
+    {
+      "name": "CUBIEBOARD1",
+      "includePath": ["${workspaceFolder}/**"],
+      "defines": ["__CUBIEBOARD_1__"],
+      "compilerPath": "/usr/bin/clang++",
+      "cStandard": "c99",
+      "cppStandard": "c++14",
+      "intelliSenseMode": "linux-clang-x64",
+      "browse": {
+        "limitSymbolsToIncludedHeaders": true
+      }
     }
   ],
   "version": 4

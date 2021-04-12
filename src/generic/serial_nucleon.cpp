@@ -1,19 +1,13 @@
 //By Tsuki Superior
-#include "generic/serial_nucleon.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/serial_nucleon.hpp>
+#include <generic/nucleus_instance.hpp>
 
 Serial::Serial(void)
 {
 #ifdef __PERSONAL_COMPUTER__
-  static RS232_quark rs232_quark = RS232_quark();
+  static PC_UART_quark pc_uart_quark = PC_UART_quark();
 
-  attachquark(rs232_quark);
-#endif
-
-#ifdef __GAMEBOY_ADVANCED__
-  static GBA_IO_PORT_quark gba_io_port_quark = GBA_IO_PORT_quark();
-
-  attachquark(gba_io_port_quark);
+  attachquark(pc_uart_quark);
 #endif
 
 #ifdef __RASPBERRY_PI_3__
@@ -27,12 +21,43 @@ Serial::~Serial()
 {
 }
 
-uint8_t Serial::exchangebyte(uint8_t b)
+void Serial::reset(void)
 {
-  return isdevicethere() ? quark->exchangebyte(b) : 0x00;
+  quark->reset();
 }
 
-bool Serial::isdevicethere(void)
+void Serial::sendbyte(uint8_t b) const
 {
-  return quark->isdevicethere();
+  while (!isdevicereadytoreceive())
+  {
+  }
+  quark->sendbyte(b);
+}
+
+uint8_t Serial::getbyte(void) const
+{
+  while (!isdevicereadytotransmit())
+  {
+  }
+  return quark->getbyte();
+}
+
+void Serial::sendbytearray(Array<uint8_t> array) const
+{
+  uint_fast16_t array_len = array.len();
+  uint_fast16_t x = 0;
+  for (x = 0; x < array_len; x++)
+  {
+    sendbyte(array[x]);
+  }
+}
+
+bool Serial::isdevicereadytoreceive(void) const
+{
+  return quark->isdevicereadytoreceive();
+}
+
+bool Serial::isdevicereadytotransmit(void) const
+{
+  return quark->isdevicereadytotransmit();
 }

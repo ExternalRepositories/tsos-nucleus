@@ -1,6 +1,6 @@
 //By Tsuki Superior
-#include "generic/fat12.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/fat12.hpp>
+#include <generic/nucleus_instance.hpp>
 
 FAT12_quark::FAT12_quark(void)
 {
@@ -11,7 +11,7 @@ bool FAT12_quark::detectsystem(void)
 {
   return true;
   uint8_t *diskfsname = tsos->disk.getbytes(0x4f, 0x05);
-  char *fsname = "FAT12";
+  const char *fsname = "FAT12";
   for (uint8_t x = 0; x < 0x5; x++)
   {
     if ((uint8_t)fsname[x] != diskfsname[x])
@@ -25,18 +25,20 @@ void FAT12_quark::reset(void)
 {
 }
 
-char **FAT12_quark::readdir(char *path)
+Array<String &> &FAT12_quark::readdir(String &path)
 {
-  return (char **)NULL;
+  Array<String &> *tmp = (Array<String &> *)nullptr;
+  return *tmp;
 }
 
-void FAT12_quark::rename(char *path, char *newPath)
+void FAT12_quark::rename(String &path, char *newPath)
 {
 }
 
-File FAT12_quark::open(char *path)
+File FAT12_quark::open(String &path)
 {
-  return File();
+  File tmp;
+  return tmp;
 }
 
 void FAT12_quark::close(File file)
@@ -52,20 +54,25 @@ void FAT12_quark::write(File file, char *data)
 {
 }
 
-char *FAT12_quark::readfile(char *path)
+char *FAT12_quark::readfile(String &path)
 {
   return "";
 }
 
-void FAT12_quark::writefile(char *path, char *data)
+void FAT12_quark::writefile(String &path, char *data)
 {
 }
 
-void FAT12_quark::appendfile(char *path, char *data)
+void FAT12_quark::appendfile(String &path, char *data)
 {
 }
 
-bool FAT12_quark::exists(char *path)
+bool FAT12_quark::exists(String &path)
+{
+  return false;
+}
+
+bool FAT12_quark::isfilenamevalid(char *name)
 {
   return true;
 }

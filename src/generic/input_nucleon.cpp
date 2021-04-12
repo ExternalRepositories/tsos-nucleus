@@ -1,6 +1,6 @@
 //By Tsuki Superior
-#include "generic/input_nucleon.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/input_nucleon.hpp>
+#include <generic/nucleus_instance.hpp>
 
 Input::Input(void)
 {
@@ -14,12 +14,6 @@ Input::Input(void)
     return;
   }
 
-#endif
-
-#ifdef __GAMEBOY_ADVANCED__
-  static GBA_GAMEPAD_quark gba_gamepad_quark = GBA_GAMEPAD_quark();
-
-  attachquark(gba_gamepad_quark);
 #endif
 
 #ifdef __RASPBERRY_PI_3__

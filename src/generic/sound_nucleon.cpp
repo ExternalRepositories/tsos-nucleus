@@ -1,6 +1,6 @@
 //By Tsuki Superior
-#include "generic/sound_nucleon.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/sound_nucleon.hpp>
+#include <generic/nucleus_instance.hpp>
 
 Sound::Sound(void)
 {
@@ -8,13 +8,6 @@ Sound::Sound(void)
   static PC_SPEAKER_quark pc_speaker_quark = PC_SPEAKER_quark();
 
   attachquark(pc_speaker_quark);
-#endif
-
-#ifdef __GAMEBOY_ADVANCED__
-  static GBA_SOUND_quark gba_sound_quark = GBA_SOUND_quark();
-
-  attachquark(gba_sound_quark);
-
 #endif
 
 #ifdef __RASPBERRY_PI_3__

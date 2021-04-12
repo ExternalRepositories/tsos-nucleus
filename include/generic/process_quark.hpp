@@ -10,8 +10,10 @@
 #ifndef __TSOS_NUCLEUS_PROCESS_QUARK__
 #define __TSOS_NUCLEUS_PROCESS_QUARK__
 
-#include "generic/quark.hpp"
-#include "generic/types.hpp"
+#include <generic/quark.hpp>
+#include <generic/types.hpp>
+#include <generic/array.hpp>
+#include <generic/string.hpp>
 
 class Process_quark : public Quark
 {
@@ -20,9 +22,7 @@ public:
 
   ~Process_quark();
 
-  virtual bool isvalidexecutable(char *path) = 0;
-
-  virtual uintptr_t getstartoffreemem(void) = 0;
+  virtual bool isvalidexecutable(String &path) = 0;
 };
 
 #endif

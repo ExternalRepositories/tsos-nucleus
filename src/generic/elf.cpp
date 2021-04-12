@@ -1,5 +1,6 @@
 // By Tsuki Superior
-#include "generic/elf.hpp"
+#include <generic/elf.hpp>
+#include <generic/nucleus_instance.hpp>
 
 ELF_quark::ELF_quark(void)
 {
@@ -8,43 +9,39 @@ ELF_quark::ELF_quark(void)
 
 bool ELF_quark::detectsystem(void)
 {
-  return isvalidexecutable("/nucleus");
+  return true;
+  //return isvalidexecutable("/nucleus");
 }
 
 void ELF_quark::reset(void)
 {
 }
 
-bool ELF_quark::isvalidexecutable(char *path)
+bool ELF_quark::isvalidexecutable(String &path)
 {
-  return true;
-}
+  Elf32_header header = Elf32_header();
+  File file = tsos->filesystem.open(path);
+  uint8_t *exec = tsos->filesystem.read(file, sizeof(Elf32_header));
+  memcpy(&header, exec, sizeof(Elf32_header));
+  if (memcpy(&header.e_ident, ELFMAG, 4) == 0)
+  {
 
-// This needs to give back the address to the first free memory location in the os, that can be used for a primitive heap
-uintptr_t ELF_quark::getstartoffreemem(void)
-{
-
-#ifdef __PERSONAL_COMPUTER__
-  extern uintptr_t _kernelend;
-  return _kernelend;
+// A i386 elf file
+#ifdef __i386__
+    return header.e_machine == e_machine::EM_386;
 #endif
 
-#ifdef __GAMEBOY_ADVANCED__
-  return 0x03000000;
+#ifdef __arm__
+    return header.e_machine == e_machine::EM_ARM;
 #endif
 
-#ifdef __NSPIRE__
-  extern uintptr_t _kernelend;
-  return _kernelend;
+#ifdef __aarch64__
+    return header.e_machine == e_machine::EM_AARCH64;
 #endif
-
-#ifdef __RASPBERRY_PI_3__
-  extern uintptr_t _kernelend;
-  return _kernelend;
-#endif
-
-#ifdef __NINTENDO_DUAL_SCREEN__
-
-#endif
-  return 0;
+    return false;
+  }
+  else
+  {
+    return false;
+  }
 }

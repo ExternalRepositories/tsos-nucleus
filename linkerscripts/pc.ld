@@ -1,17 +1,7 @@
-/*
- * The bootloader will look at this image and start execution at the symbol
- * designated as the entry point.
- */
-
 OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i686)
 ENTRY(_start)
  
-/*
- * Tell where the various sections of the object files will be put in the final
- * kernel image.
- */
-
 SECTIONS
 {
 	/* 
@@ -27,6 +17,11 @@ SECTIONS
 		*(.text .text.*)
 		*(.init)
 		*(.fini)
+	}
+
+	.note.gnu.build-id ALIGN(4K) : 
+	{
+		*(.note.gnu.build-id)
 	}
  
 	/* 
@@ -56,14 +51,21 @@ SECTIONS
 	{
 		*(.bss .bss.*) 
 		*(COMMON)
+    LONG(0)
 	}
-	_kernelend = . ;
+
+	.heap ALIGN(4K):
+	{
+		LINKER_kernel_heap =  ADDR(.heap);
+		*(.heap)
+		*(.heap.*)
+		LONG(0)
+	}
 
   /DISCARD/ :
   { 
       *(.comment) 
       *(.gnu*) 
-      *(.note*) 
       *(.eh_frame*)
   }
 }

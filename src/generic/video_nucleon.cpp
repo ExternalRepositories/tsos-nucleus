@@ -1,6 +1,6 @@
 //By Tsuki Superior
-#include "generic/video_nucleon.hpp"
-#include "generic/nucleus_instance.hpp"
+#include <generic/video_nucleon.hpp>
+#include <generic/nucleus_instance.hpp>
 
 Video::Video(void) : backgroundcolor(Color(0x00, 0x00, 0x00)), foregroundcolor(Color(0xff, 0xff, 0xff))
 {
@@ -21,12 +21,6 @@ Video::Video(void) : backgroundcolor(Color(0x00, 0x00, 0x00)), foregroundcolor(C
   }
 #endif
 
-#ifdef __GAMEBOY_ADVANCED__
-  static GBA_SCREEN_quark gba_screen_quark = GBA_SCREEN_quark();
-
-  attachquark(gba_screen_quark);
-#endif
-
 #ifdef __RASPBERRY_PI_3__
   static RPI3_SCREEN_quark rpi3_screen_quark = RPI3_SCREEN_quark();
 
@@ -38,9 +32,10 @@ Video::~Video()
 {
 }
 
-void Video::reset(void) const
+void Video::reset(void)
 {
   quark->reset();
+  scroll = 0;
 }
 
 void Video::putchar(uint16_t posx, uint16_t posy, char c) const
@@ -58,7 +53,7 @@ void Video::putstring(uint16_t posx, uint16_t posy, const char *str) const
   uint16_t pos = 0;
   uint16_t x = posx;
   uint16_t y = posy;
-  while (str[pos] != NULL)
+  while (str[pos] != 0)
   {
     char c = str[pos];
     switch (c)
@@ -90,11 +85,12 @@ uint16_t Video::getscreenheight(void) const
   return quark->getscreenheight();
 }
 
-void Video::setfont(Font f)
+void Video::setfont(Font &f)
 {
+  font = f;
 }
 
-void Video::clear(void) const
+void Video::clear(void)
 {
   for (uint16_t x = 0, lenx = getscreenwidth(); x < lenx; x++)
   {

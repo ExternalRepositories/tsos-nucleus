@@ -23,6 +23,10 @@ getbytes:
 
 Get a length of bytes from a offset in the computer
 
+setbytes:
+
+Set a set off bytes at a offset in the computer
+
 getsectorsize:
 
 Get the sector size of the disk
@@ -114,7 +118,11 @@ Kill a process
 killall:
 
 Kill all processes
+```
 
+MEMORY SYSCALLS:
+
+```text
 allocatememory:
 
 Allocate memory
@@ -127,11 +135,15 @@ Free memory
 SERIAL SYSCALLS:
 
 ```text
-exchangebyte:
+getbyte:
 
-Exchange a byte with the other device
+Send a byte to the other device
 
-isdevicethere:
+sendbyte:
+
+Gey a byte from the other device
+
+isdeviceready:
 
 Check if a device is connected to this device
 ```

@@ -12,16 +12,17 @@
 #ifndef __TSOS_NUCLEUS_CORE__
 #define __TSOS_NUCLEUS_CORE__
 
-#include "generic/boot_nucleon.hpp"
-#include "generic/disk_nucleon.hpp"
-#include "generic/filesystem_nucleon.hpp"
-#include "generic/input_nucleon.hpp"
-#include "generic/process_nucleon.hpp"
-#include "generic/serial_nucleon.hpp"
-#include "generic/sound_nucleon.hpp"
-#include "generic/video_nucleon.hpp"
-#include "generic/io_nucleon.hpp"
-#include "generic/types.hpp"
+#include <generic/boot_nucleon.hpp>
+#include <generic/disk_nucleon.hpp>
+#include <generic/filesystem_nucleon.hpp>
+#include <generic/input_nucleon.hpp>
+#include <generic/process_nucleon.hpp>
+#include <generic/serial_nucleon.hpp>
+#include <generic/sound_nucleon.hpp>
+#include <generic/video_nucleon.hpp>
+#include <generic/io_nucleon.hpp>
+#include <generic/memory_nucleon.hpp>
+#include <generic/types.hpp>
 
 // The main class collecting the TS/OS nucleus api
 class Tsos
@@ -35,6 +36,9 @@ public:
 
   // The nucleon being used to control io
   IO io;
+
+  // The nucleon being used to control memory
+  Memory memory;
 
   // The nucleon being used to control video
   Video video;
